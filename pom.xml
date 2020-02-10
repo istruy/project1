@@ -76,20 +76,13 @@
             <version>1.1.1</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
-        <!--<dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>5.2.3.RELEASE</version>
-        </dependency>-->
-
     </dependencies>
     <build>
 
 
         <plugins>
 
-            <!-- <plugin>
+             <plugin>
                  <groupId>io.qameta.allure</groupId>
                  <artifactId>allure-maven</artifactId>
                  <version>2.9</version>
@@ -97,7 +90,6 @@
                      <reportVersion>2.6.0</reportVersion>
                  </configuration>
              </plugin>
-     -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -181,6 +173,11 @@
                 <groupId>ru.yandex.qatools.allure</groupId>
                 <artifactId>allure-maven-plugin</artifactId>
                 <version>2.2</version>
+            </plugin>
+            <plugin>
+                <groupId>ru.yandex.qatools.allure</groupId>
+                <artifactId>allure-report-data</artifactId>
+                <version>1.4.14</version>
             </plugin>
         </plugins>
     </reporting>

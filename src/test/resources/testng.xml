@@ -5,7 +5,7 @@
         <parameter name="username" value="john_dow@some.domaine.com"/>
         <parameter name="password" value="123456789"/>
         <classes>
-            <class name="ru.Calc.InterviewTaskTest"/>
+            <class name="ru.TodoManager.InterviewTaskTest"/>
         </classes>
     </test> <!-- Annotations -->
 
@@ -16,7 +16,7 @@
             </run>
         </groups>
         <classes>
-            <class name="ru.Calc.InterviewTaskTest"/>
+            <class name="ru.TodoManager.InterviewTaskTest"/>
         </classes>
     </test>
 

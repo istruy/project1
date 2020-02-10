@@ -1,4 +1,4 @@
-package ru.Calc;
+package ru.TodoManager;
 
 import org.testng.annotations.DataProvider;
 

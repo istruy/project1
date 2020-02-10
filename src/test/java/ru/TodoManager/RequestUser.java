@@ -1,26 +1,16 @@
-package ru.Calc;
+package ru.TodoManager;
 
 import io.restassured.RestAssured;
 import io.restassured.http.Cookie;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.simple.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class RequestUser {
-    private static String baseURI = "http://localhost:7844/";
 
-    public static RequestSpecification doRequest(String contentType, Cookie cookie) {
-        RestAssured.baseURI = baseURI;
-        RequestSpecification request = RestAssured.given();
-        JSONObject requestParams = new JSONObject();
-        request.contentType(contentType);
-        request.cookie(cookie);
-        request.body(requestParams.toJSONString());
-
-        return request;
-    }
+    private static String baseURI = "http://localhost:7844/api";
 
     public static RequestSpecification doRequest(String contentType, Cookie cookie, HashMap<String, String> parameters) {
         RestAssured.baseURI = baseURI;
@@ -56,9 +46,7 @@ public class RequestUser {
     public static RequestSpecification doRequest(Cookie cookie) {
         RestAssured.baseURI = baseURI;
         RequestSpecification request = RestAssured.given();
-        JSONObject requestParams = new JSONObject();
         request.cookie(cookie);
-        request.body(requestParams.toJSONString());
 
         return request;
     }

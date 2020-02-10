@@ -1,4 +1,4 @@
-package ru.Calc;
+package ru.TodoManager;
 
 import io.restassured.response.Response;
 import io.restassured.http.Cookie;
@@ -21,7 +21,11 @@ public class InterviewTaskTest extends Assert {
             groups = {"testUI"})
     public void checkGoodCredentials(String username, String password) {
         InterviewTask.getLogin(driver, username, password);
-        driver.findElement(By.xpath("//div[@id='main-page']"));
+        try {
+            driver.findElement(By.xpath("//div[@id='main-page']"));
+        } catch (org.openqa.selenium.NoSuchElementException ex) {
+            throw ex;
+        }
         driver.manage().deleteAllCookies();
     }
 
@@ -30,7 +34,12 @@ public class InterviewTaskTest extends Assert {
             groups = {"testUI"})
     public void checkBadCredentials(String username, String password) {
         InterviewTask.getLogin(driver, username, password);
-        String elementError = driver.findElement(By.xpath("//span[@class='error']")).getText();
+        String elementError = "";
+        try {
+            elementError = driver.findElement(By.xpath("//span[@class='error']")).getText();
+        } catch (org.openqa.selenium.NoSuchElementException ex) {
+            throw ex;
+        }
         Assert.assertTrue(elementError.contains("Неверные логин или пароль"));
         driver.manage().deleteAllCookies();
     }
@@ -39,10 +48,10 @@ public class InterviewTaskTest extends Assert {
             dataProviderClass = InterviewTaskData.class,
             groups = {"testUI"})
     public void checkLogOutUI(String username, String password) {
+        driver.manage().deleteAllCookies();
         InterviewTask.getLogin(driver, username, password);
         driver.findElement(By.xpath("//*[@class='page-header']/div/button")).click();
         driver.findElement(By.xpath("//*[@id='login-page']"));
-        driver.manage().deleteAllCookies();
     }
 
     @Test(dataProvider = "credoLogin",
@@ -73,11 +82,14 @@ public class InterviewTaskTest extends Assert {
 
     @Test(dataProvider = "credoLogin",
             dataProviderClass = InterviewTaskData.class,
-            groups = {"testUI"},
-            dependsOnMethods = "checkToDoRemoveUI")
+            groups = {"testUI"})
     public void checkToDoCreateUI(String username, String password) {
-        String[] arrAfterCreate = InterviewTask.CreateToDoUI(driver, username, password);
+        driver.manage().deleteAllCookies();
+        InterviewTask.getLogin(driver, username, password);
+        String[] arrAfterCreate = InterviewTask.CreateToDoUI(driver);
+
         String result = Integer.toString(Integer.parseInt(arrAfterCreate[0]) + 1);
+
         Assert.assertEquals(result, arrAfterCreate[1]);
         Assert.assertEquals(arrAfterCreate[2], arrAfterCreate[3]);
         driver.manage().deleteAllCookies();
@@ -87,11 +99,12 @@ public class InterviewTaskTest extends Assert {
             dataProviderClass = InterviewTaskData.class,
             groups = {"testUI"})
     public void checkToDoRemoveUI(String username, String password) {
+        driver.manage().deleteAllCookies();
+
         String[] arrAfterRemove = InterviewTask.removeToDoUI(driver, username, password);
         String result = Integer.toString(Integer.parseInt(arrAfterRemove[1]) + 1);
         Assert.assertEquals(result, arrAfterRemove[0]);
         driver.manage().deleteAllCookies();
-
     }
 
     @Test(dataProvider = "credoLogin",
